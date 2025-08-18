@@ -1,5 +1,5 @@
 
-import turtle as trl  ##import turtle and working on creating all three shapes before creating functions for the shapes (im am new to coding so the learning curve is lowkey steep)
+import turtle as trl  ##import turtle, and working on creating all three shapes before creating functions for the shapes (im am new to coding so the learning curve is lowkey steep)
 
 t = trl.Turtle()
 
