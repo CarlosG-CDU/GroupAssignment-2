@@ -1,0 +1,21 @@
+
+import turtle as trl  ##import turtle and working on creating all three shapes before creating functions for the shapes (im am new to coding so the learning curve is lowkey steep)
+
+t = trl.Turtle()
+
+number_side = int("Enter the number of sides:")
+
+
+
+
+
+t.forward(100)
+t.right(45)
+t.forward(50)
+t.left(90)
+t.forward(50)
+t.right(45)
+t.forward(100)
+
+
+trl.done()
