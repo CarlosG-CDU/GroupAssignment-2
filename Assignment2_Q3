@@ -1,21 +1,35 @@
 
-import turtle as trl  ##import turtle, and working on creating all three shapes before creating functions for the shapes (im am new to coding so the learning curve is lowkey steep)
+import turtle
+t = turtle.Turtle()
+wn = turtle.Screen()
+wn.bgcolor('black')
 
-t = trl.Turtle()
-
-number_side = int("Enter the number of sides:")
-
-
-
-
-
-t.forward(100)
-t.right(45)
-t.forward(50)
-t.left(90)
-t.forward(50)
-t.right(45)
-t.forward(100)
+t.color("purple")
+t.pensize(5)
+t.penup()
+t.setpos(-150, 350)
+t.pendown()
+t.speed(5)
 
 
-trl.done()
+#ask for a length
+def triangle(length):
+
+    for angle in [-120, -120, 0]:
+        t.forward(length // 3)
+        t.left(angle)
+
+#create a function of 'N' length
+def koch(t, recursion, length):
+    if recursion == 0:
+        t.forward(length) #if the repetition of the pattern is zero, just go forward the given length
+    else:
+        for angle in [60, -120, 60, 0]:
+            koch(t, recursion-1, length // 3)
+            t.left(angle)
+
+
+
+length = 200 #int(input("What is the length of the drawing?: "))
+recursion = 4  #int(input("How many times would you like to repeat the pattern: ")) 
+triangle(length)
