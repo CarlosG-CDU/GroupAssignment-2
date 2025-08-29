@@ -28,10 +28,11 @@ sides = int(input("Enter the number of sides (3 for snowflake, 4 for square, etc
 screen = trl.Screen()
 t = trl.Turtle()
 t.speed(0)
-t.penup
-t.goto(50, 50)
-t.pendown
-t.write("'Fantastic, you drew a fractal.'")
+#t.penup
+#t.goto(50, 50)
+
+#t.pendown
+#t.write("'Fantastic, you drew a fractal.'")
 
 t.penup
 t.goto(0,0)
