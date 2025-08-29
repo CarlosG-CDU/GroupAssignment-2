@@ -42,6 +42,6 @@ for _ in range(sides):
     koch(t, length, order)
     t.right(360 / sides)  #divide 360 by the amount of sides to get the correct angle and so the drawing ends in starting position
 
-
+trl.done()
 
 
