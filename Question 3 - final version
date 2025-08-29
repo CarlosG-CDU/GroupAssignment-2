@@ -2,11 +2,11 @@
 
 
 import turtle as trl
-
+import math
 
 
 def koch(t, length, order):                                     ### https://pythonguides.com/fractal-python-turtle/
-    if order == 0:  
+    if order == 0:  ##base case, if order = 0 
         t.forward(length)
     else:     
         length /= 3
@@ -17,17 +17,17 @@ def koch(t, length, order):                                     ### https://pyth
         koch(t, length, order - 1)
         t.right(60)
         koch(t, length, order - 1)
+        
 
 #User inputs
 length = float(input("Enter the length of each side: "))
 order = int(input("Please Enter how many times the pattern should repeat: "))
-sides = int(input("Enter the number of sides (3 for snowflake, 4 for square): "))
+sides = int(input("Enter the number of sides (3 for snowflake, 4 for square, etc.): "))
 
 #Setup turtle
 screen = trl.Screen()
 t = trl.Turtle()
 t.speed(0)
-t.pencolor("purple")
 t.penup
 t.goto(50, 50)
 t.pendown
@@ -37,9 +37,13 @@ t.penup
 t.goto(0,0)
 t.pendown
 
-# Draw Koch pattern
+# repeat the pattern over the amount of sides
 for _ in range(sides):
     koch(t, length, order)
-    t.right(360 / sides)
+    t.right(360 / sides)  #divide 360 by the amount of sides to get the correct angle and so the drawing ends in starting position
+
+
+
+
 
 trl.done()
