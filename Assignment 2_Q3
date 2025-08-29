@@ -24,19 +24,18 @@ def koch(t, length, order):                                     ### https://pyth
         
 
 #User inputs
-length = float(input("Enter the length of each side: "))
+sides = int(input("Enter the number of sides: "))
+length = float(input("Enter the side length: "))
 order = int(input("Please Enter how many times the pattern should repeat: "))
-sides = int(input("Enter the number of sides (3 for snowflake, 4 for square, etc.): "))
+
 
 #Setup turtle
 screen = trl.Screen()
 t = trl.Turtle()
 t.speed(0)
-#t.penup
-#t.goto(50, 50)
-
-#t.pendown
-#t.write("'Fantastic, you drew a fractal.'")
+t.penup
+t.goto(50, 50)
+t.pendown
 
 t.penup
 t.goto(0,0)
@@ -50,5 +49,3 @@ for _ in range(sides):
 
 
 
-
-trl.done()
