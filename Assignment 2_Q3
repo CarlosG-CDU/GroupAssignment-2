@@ -28,6 +28,7 @@ sides = int(input("Enter the number of sides: "))
 length = float(input("Enter the side length: "))
 order = int(input("Please Enter how many times the pattern should repeat: "))
 
+#this is a note
 
 #Setup turtle
 screen = trl.Screen()
