@@ -1,12 +1,11 @@
 
 
 
+import turtle as trl
 
-#was having trouble getting function to work so Chat GPT helped me refine it:
 
-import turtle
 
-def koch(t, length, order):  
+def koch(t, length, order):                                     ### https://pythonguides.com/fractal-python-turtle/
     if order == 0:  
         t.forward(length)
     else:     
@@ -19,18 +18,28 @@ def koch(t, length, order):
         t.right(60)
         koch(t, length, order - 1)
 
-# --- User inputs ---
+#User inputs
 length = float(input("Enter the length of each side: "))
-order = int(input("Enter the order (recursion depth): "))
-sides = int(input("Enter the number of sides (3 for snowflake, 4 for square, etc.): "))
+order = int(input("Please Enter how many times the pattern should repeat: "))
+sides = int(input("Enter the number of sides (3 for snowflake, 4 for square): "))
 
-# --- Setup turtle ---
-t = turtle.Turtle()
+#Setup turtle
+screen = trl.Screen()
+t = trl.Turtle()
 t.speed(0)
+t.pencolor("purple")
+t.penup
+t.goto(50, 50)
+t.pendown
+t.write("'Fantastic, you drew a fractal.'")
+
+t.penup
+t.goto(0,0)
+t.pendown
 
 # Draw Koch pattern
 for _ in range(sides):
     koch(t, length, order)
     t.right(360 / sides)
 
-turtle.done()
+trl.done()
