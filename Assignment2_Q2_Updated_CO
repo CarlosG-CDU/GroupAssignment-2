@@ -87,7 +87,9 @@ with open('/content/average_temp.txt', 'w') as f:   #save avg's to .txt as reque
 month_cols = ['January','February','March','April','May','June',
               'July','August','September','October','November','December']
 
-# Group by station and find overall max and min across all months
+# Group by station and find overall max and min across all months    
+#Ref: https://pandas.pydata.org/pandas-docs/stable//reference/api/pandas.core.groupby.DataFrameGroupBy.max.html 
+#Ref: https://www.statology.org/pandas-max-across-columns/
 station_max = combine_df.groupby('STATION_NAME')[month_cols].max().max(axis=1)
 station_min = combine_df.groupby('STATION_NAME')[month_cols].min().min(axis=1)
 
@@ -107,3 +109,28 @@ with open('/content/largest_temp_range_station.txt', 'w') as f:
                 f"(Max: {station_max[station]:.1f}°C, Min: {station_min[station]:.1f}°C)\n")
 
 print("Saved largest temperature range results to largest_temp_range_station.txt")
+
+################################
+# Temperature Stability: Most stable and most variable stations
+
+# Std per month per station (over all years)
+#Ref: https://www.statology.org/pandas-groupby-standard-deviation/
+station_monthly_std = combine_df.groupby('STATION_NAME')[month_cols].std()
+
+# Collapse to one std per station across all months
+#Ref: https://www.geeksforgeeks.org/python/how-to-use-axis0-and-axis1-in-pandas/
+station_std_across_months = station_monthly_std.std(axis=1)
+
+min_std_value = station_std_across_months.min()
+max_std_value = station_std_across_months.max()
+
+most_stable_stations = station_std_across_months[station_std_across_months == min_std_value].index
+most_variable_stations = station_std_across_months[station_std_across_months == max_std_value].index
+
+with open('/content/temperature_stability_stations.txt', 'w') as f:
+    for station in most_stable_stations:
+        f.write(f"Most Stable: {station}: StdDev {min_std_value:.1f}°C\n")
+    for station in most_variable_stations:
+        f.write(f"Most Variable: {station}: StdDev {max_std_value:.1f}°C\n")
+
+print("Saved temperature stability results to temperature_stability_stations.txt")
