@@ -112,7 +112,6 @@ print("Saved largest temperature range results to largest_temp_range_station.txt
 
 ################################
 # Temperature Stability: Most stable and most variable stations
-
 #Ref: https://www.geeksforgeeks.org/python/pandas-multi-index-and-groupby/
 
 # Keep only the station name and month columns
@@ -121,14 +120,8 @@ df_months = combine_df[['STATION_NAME'] + month_cols]
 # Set the station name as the index
 df_months = df_months.set_index('STATION_NAME')
 
-# Stack the month columns into a single column of values
-stacked = df_months.stack()
-
-# Group by station name (index level 0)
-grouped = stacked.groupby(level=0)
-
-# Calculate the standard deviation for each station
-station_overall_std = grouped.std()
+# Flatten all months into one column per station, then calculate std dev
+station_overall_std = df_months.stack().groupby(level=0).std()
 
 # Find the smallest and largest std dev values
 min_std_value = station_overall_std.min()
