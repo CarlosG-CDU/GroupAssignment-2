@@ -113,20 +113,32 @@ print("Saved largest temperature range results to largest_temp_range_station.txt
 ################################
 # Temperature Stability: Most stable and most variable stations
 
-# Std per month per station (over all years)
-#Ref: https://www.statology.org/pandas-groupby-standard-deviation/
-station_monthly_std = combine_df.groupby('STATION_NAME')[month_cols].std()
+#Ref: https://www.geeksforgeeks.org/python/pandas-multi-index-and-groupby/
 
-# Collapse to one std per station across all months
-#Ref: https://www.geeksforgeeks.org/python/how-to-use-axis0-and-axis1-in-pandas/
-station_std_across_months = station_monthly_std.std(axis=1)
+# Keep only the station name and month columns
+df_months = combine_df[['STATION_NAME'] + month_cols]
 
-min_std_value = station_std_across_months.min()
-max_std_value = station_std_across_months.max()
+# Set the station name as the index
+df_months = df_months.set_index('STATION_NAME')
 
-most_stable_stations = station_std_across_months[station_std_across_months == min_std_value].index
-most_variable_stations = station_std_across_months[station_std_across_months == max_std_value].index
+# Stack the month columns into a single column of values
+stacked = df_months.stack()
 
+# Group by station name (index level 0)
+grouped = stacked.groupby(level=0)
+
+# Calculate the standard deviation for each station
+station_overall_std = grouped.std()
+
+# Find the smallest and largest std dev values
+min_std_value = station_overall_std.min()
+max_std_value = station_overall_std.max()
+
+# Get the station names for most stable and most variable
+most_stable_stations = station_overall_std[station_overall_std == min_std_value].index
+most_variable_stations = station_overall_std[station_overall_std == max_std_value].index
+
+# Save results to file
 with open('/content/temperature_stability_stations.txt', 'w') as f:
     for station in most_stable_stations:
         f.write(f"Most Stable: {station}: StdDev {min_std_value:.1f}°C\n")
